@@ -1,36 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeOpenXml.Core.ExcelPackage;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CSVConverter
 {
     class Program
     {
-        private static List<FileInfo> _filesToProcess = new List<FileInfo>();
+        private static IEnumerable<string> paths;
 
+        [STAThread]
         static void Main(string[] args)
         {
-            foreach (string path in args) ParsePath(path);
-        }
-
-        private static void ParsePath(string path)
-        {
-            try
+            if (args.Any()) paths = args;
+            else
             {
-                FileInfo FileInfo = new FileInfo(path);
-                if (FileInfo.Exists)
+                OpenFileDialog OpenFileDialog = new OpenFileDialog
                 {
-                    _filesToProcess.Add(FileInfo);
-                    Console.WriteLine("File found: " + FileInfo.FullName);
-                    return;
+                    CheckFileExists = true,
+                    Multiselect = true
+                };
+                switch (OpenFileDialog.ShowDialog())
+                {
+                    case DialogResult.OK:
+                    case DialogResult.Yes:
+                        paths = OpenFileDialog.FileNames;
+                        break;
+                    default: return;
                 }
             }
-            catch { }
-            Console.WriteLine("File NOT found: " + path);
+
+            CSVConverter.Convert(paths.Select(p => new FileInfo(p)).Where(f => f.Exists).ToArray());
         }
     }
 }
