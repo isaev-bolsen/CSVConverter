@@ -18,7 +18,7 @@ namespace CSVConverter
             {
                 OpenFileDialog OpenFileDialog = new OpenFileDialog
                 {
-                    CheckFileExists = true,
+                    Filter = "Excel Files (*.xlsx) |*.xlsx",
                     Multiselect = true
                 };
                 switch (OpenFileDialog.ShowDialog())
