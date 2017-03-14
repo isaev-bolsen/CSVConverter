@@ -1,4 +1,4 @@
-﻿using OfficeOpenXml.Core.ExcelPackage;
+﻿using OfficeOpenXml;
 
 namespace CSVConverter
 {
