@@ -16,9 +16,7 @@ namespace CSVConverter
                     ExcelWorksheet[] worksheets = new ExcelPackage(file).Workbook.Worksheets.Cast<ExcelWorksheet>().ToArray();
                     if (worksheets.Count() == 1) new Page(worksheets.Single()).Save(GetResultPath(file.Directory, Filename));
                     else foreach (ExcelWorksheet ws in worksheets)
-                        {
                             new Page(ws).Save(GetResultPath(file.Directory, string.Join("_", Filename, ws.Name)));
-                        }
                 }
                 catch (Exception exc)
                 {
