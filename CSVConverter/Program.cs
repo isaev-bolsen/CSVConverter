@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CSVConverter
@@ -13,6 +15,8 @@ namespace CSVConverter
         [STAThread]
         static void Main(string[] args)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); //TODO : ability to set in the config? 
+
             if (args.Any()) paths = args;
             else
             {
