@@ -7,7 +7,7 @@ namespace CSVConverter
 {
     class Page
     {
-        private const string separator = ",";
+        private const string separator = ";";
 
         private readonly int _rowsCount;
         private readonly int _columnsCount;
