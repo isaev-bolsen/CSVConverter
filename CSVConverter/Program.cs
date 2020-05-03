@@ -35,7 +35,14 @@ namespace CSVConverter
                 }
             }
 
-            CSVConverter.Convert(paths.Select(p => new FileInfo(p)).Where(f => f.Exists).ToArray());
+            IEnumerable<FileInfo> result = CSVConverter.Convert(paths.Select(p => new FileInfo(p)).Where(f => f.Exists).ToArray());
+
+            if (args.Any())
+                foreach (FileInfo f in result)
+                    Console.WriteLine(f.FullName);
+            else
+                foreach (DirectoryInfo dir in result.Select(r => r.Directory).Distinct())
+                    System.Diagnostics.Process.Start("explorer.exe", dir.FullName);
         }
     }
 }
